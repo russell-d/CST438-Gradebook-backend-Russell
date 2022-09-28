@@ -1,5 +1,8 @@
 package com.cst438.controllers;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.cst438.domain.Assignment;
 import com.cst438.domain.AssignmentListDTO;
+import com.cst438.domain.AssignmentListDTO.AssignmentDTO;
 import com.cst438.domain.AssignmentGrade;
 import com.cst438.domain.AssignmentGradeRepository;
 import com.cst438.domain.AssignmentRepository;
@@ -168,6 +172,28 @@ public class GradeBookController {
 		}
 		
 		return assignment;
+	}
+	
+	@PostMapping("/gradebook/add")
+	public void addAssignment(@RequestBody AssignmentDTO a) {
+		
+		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+		Date date = null; // date must be init here to be turned from string into date
+		
+		try {
+			date = (Date) f.parse(a.dueDate);
+		} catch (ParseException e) {
+			// When date is can't be parsed, then catch
+			e.printStackTrace();
+		}
+		
+		Assignment assignment = new Assignment();
+		
+		assignment.setName(a.assignmentName);
+		assignment.setDueDate(date);
+		assignment.setCourse(courseRepository.findById(a.courseId).get());
+		
+		assignmentRepository.save(assignment);
 	}
 
 }
