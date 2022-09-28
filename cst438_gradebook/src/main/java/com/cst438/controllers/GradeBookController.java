@@ -223,8 +223,6 @@ public class GradeBookController {
 			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Assignment has grades. Cannot delete." );
 		}
 		 
-
 	}
 	
-
 }
