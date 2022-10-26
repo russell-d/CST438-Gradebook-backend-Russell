@@ -22,5 +22,9 @@ public class RegistrationServiceREST extends RegistrationService {
 		
 		//TODO  complete this method in homework 4
 		
+		restTemplate.put(registration_url + "/course/" + course_id, courseDTO);
+		
+		System.out.println("Final Grades Sent.");
+		
 	}
 }
