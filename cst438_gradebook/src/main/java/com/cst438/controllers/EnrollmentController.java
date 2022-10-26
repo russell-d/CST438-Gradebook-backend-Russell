@@ -33,9 +33,15 @@ public class EnrollmentController {
 		
 		//TODO  complete this method in homework 4
 		
-		return null;
+		Enrollment e = new Enrollment();
 		
-		// test
+		e.setStudentName(enrollmentDTO.studentName);
+		e.setStudentEmail(enrollmentDTO.studentEmail);
+		e.setCourse(courseRepository.findById(enrollmentDTO.course_id).get());
+		
+		enrollmentRepository.save(e);
+		
+		return enrollmentDTO;
 	}
 
 }
